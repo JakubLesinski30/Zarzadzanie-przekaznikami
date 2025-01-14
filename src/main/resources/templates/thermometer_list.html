@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista termometrów</title>
+</head>
+<body>
+<h1>Lista wszystkich termometrów</h1>
+
+<p><a th:href="@{/db/thermometers/new}">Dodaj nowy termometr</a></p>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID (1-Wire)</th>
+        <th>Nazwa</th>
+        <th>Opis</th>
+        <th>Lokalizacja</th>
+        <th>Temperatura</th>
+        <th>Edycja</th>
+        <th>Usuń</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="therm : ${thermometers}">
+        <td th:text="${therm.id}">-</td>
+        <td th:text="${therm.name}">-</td>
+        <td th:text="${therm.description}">-</td>
+        <td th:text="${therm.location}">-</td>
+        <td th:text="${therm.lastMeasurement}">-</td>
+        <td>
+            <a th:href="@{/db/thermometers/edit/{id}(id=${therm.id})}">Edytuj</a>
+        </td>
+        <td>
+            <a th:href="@{/db/thermometers/delete/{id}(id=${therm.id})}">
+                Usuń
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

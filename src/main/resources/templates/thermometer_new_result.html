@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Termometr zapisany</title>
+</head>
+<body>
+<h1>Zapisano nowy termometr w bazie</h1>
+
+<div th:if="${savedThermometer}">
+    <p>ID: <span th:text="${savedThermometer.id}"></span></p>
+    <p>Nazwa: <span th:text="${savedThermometer.name}"></span></p>
+    <p>Opis: <span th:text="${savedThermometer.description}"></span></p>
+    <p>Lokalizacja: <span th:text="${savedThermometer.location}"></span></p>
+</div>
+
+<p><a th:href="@{/db/thermometers/list}">Powrót do listy</a></p>
+</body>
+</html>

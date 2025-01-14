@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Temperatury</title>
+</head>
+<body>
+<h1>Odczyt temperatur z czujników DS18B20</h1>
+
+<!-- Załóżmy, że serwer zwraca JSON w formie:
+{
+  "sensors": [
+    { "id": "28-3c01d0755f1", "temperature": 22.5 },
+    { "id": "28-3c01d0755f2", "temperature": 23.0 }
+  ]
+}
+-->
+<div th:if="${temperatureData}">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Czujnik (ID)</th>
+                <th>Temperatura (°C)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="sensor : ${temperatureData['sensors']}">
+                <td th:text="${sensor['id']}"></td>
+                <td th:text="${sensor['temperature']}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

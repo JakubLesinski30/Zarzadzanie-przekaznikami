@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nowy przekaźnik zapisany</title>
+</head>
+<body>
+<h1>Nowy przekaźnik zapisany</h1>
+<div th:if="${savedRelay}">
+    <p>ID: <span th:text="${savedRelay.id}">0</span></p>
+    <p>Numer: <span th:text="${savedRelay.relayNumber}">0</span></p>
+    <p>Nazwa: <span th:text="${savedRelay.name}">-</span></p>
+    <p>Opis: <span th:text="${savedRelay.description}">-</span></p>
+    <p>Stan: <span th:text="${savedRelay.state}">-</span></p>
+    <p>Lokalizacja: <span th:text="${savedRelay.location}">-</span></p>
+</div>
+</body>
+</html>

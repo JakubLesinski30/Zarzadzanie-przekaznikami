@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel sterowania</title>
+</head>
+<body>
+    <h1>Panel sterowania</h1>
+    <ul>
+        <li><a th:href="@{/relay/set}">Ustaw stan przekaźnika</a></li>
+        <li><a th:href="@{/relay/state}">Pobierz stan pojedynczego przekaźnika</a></li>
+        <li><a th:href="@{/relay/all}">Pobierz stany wszystkich przekaźników</a></li>
+        <li><a th:href="@{/temperature}">Pobierz temperatury z czujników</a></li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wszystkie przekaźniki</title>
+</head>
+<body>
+<h1>Stany wszystkich przekaźników</h1>
+
+<p>Status z serwera: <span th:text="${allRelayStates['status']}"></span></p>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Relay Number</th>
+            <th>State</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="relay : ${allRelayStates['relays']}">
+        <td th:text="${relay['relay_number']}"></td>
+        <td th:text="${relay['state']}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

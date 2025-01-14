@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ustaw stan przekaźnika</title>
+</head>
+<body>
+<h1>Ustaw stan przekaźnika</h1>
+
+<form th:action="@{/relay/set}" method="post">
+    <label for="relayNumber">Numer przekaźnika (1..128): </label>
+    <input type="number" id="relayNumber" name="relayNumber" min="1" max="128" required />
+    <br/><br/>
+
+    <label>Stan: </label>
+    <input type="radio" id="on" name="state" value="1" checked />
+    <label for="on">ON (1)</label>
+    <input type="radio" id="off" name="state" value="0" />
+    <label for="off">OFF (0)</label>
+    <br/><br/>
+
+    <input type="submit" value="Ustaw" />
+</form>
+
+<!-- Sekcja, która wyświetla wynik po przesłaniu formularza -->
+<div th:if="${result}">
+    <h2>Wynik ustawienia</h2>
+    <p>relay_number: <span th:text="${result['relay_number']}"></span></p>
+    <p>state: <span th:text="${result['state']}"></span></p>
+    <p>Status: <span th:text="${result['status']}"></span></p>
+</div>
+
+</body>
+</html>

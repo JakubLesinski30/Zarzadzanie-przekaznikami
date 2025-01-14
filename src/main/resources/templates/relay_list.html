@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista przekaźników w bazie</title>
+</head>
+<body>
+<h1>Lista przekaźników</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Numer</th>
+        <th>Nazwa</th>
+        <th>Opis</th>
+        <th>Stan</th>
+        <th>Lokalizacja</th>
+        <th>Usuń</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="relay : ${relays}">
+        <td th:text="${relay.id}">-</td>
+        <td th:text="${relay.relayNumber}">-</td>
+        <td th:text="${relay.name}">-</td>
+        <td th:text="${relay.description}">-</td>
+        <td th:text="${relay.state}">-</td>
+        <td th:text="${relay.location}">-</td>
+        <td>
+            <a th:href="@{/db/relay/delete/{id}(id=${relay.id})}">
+                Usuń
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
