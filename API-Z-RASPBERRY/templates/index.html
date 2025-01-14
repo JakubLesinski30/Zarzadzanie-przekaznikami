@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel sterowania przekaźnikami i temperaturą</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    section { border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; }
+    label { margin-right: 10px; }
+    pre { background: #f8f8f8; padding: 8px; }
+    button { margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+<h1>Panel sterowania</h1>
+<p>Ta strona pozwala korzystać z endpointów API opisanych w projekcie (przekaźniki + odczyt temperatury).</p>
+<p>Działają płytki: 0,1,2,3</p>
+<p>Do płytek 0 i 1 fizycznie podłączone są przekaźniki</p>
+<!-- Sekcja 1: /relay/set -->
+<section>
+  <h2>/relay/set</h2>
+  <p><strong>Endpoint:</strong> <code>POST /relay/set?board_index=...&relay_pin=...&state=...</code></p>
+  
+  <form onsubmit="event.preventDefault(); setRelay();" id="form-set-relay">
+    <label>Board Index: <input type="number" id="set-board" value="0" /></label>
+    <label>Relay Pin: <input type="number" id="set-pin" value="1" /></label>
+    <label>State (0/1): <input type="number" id="set-state" value="1" /></label>
+    <button type="submit">Ustaw</button>
+  </form>
+  <pre id="resp-set-relay"></pre>
+</section>
+
+<!-- Sekcja 2: /relay/on_all -->
+<section>
+  <h2>/relay/on_all</h2>
+  <p><strong>Endpoint:</strong> <code>POST /relay/on_all</code></p>
+  <button onclick="callOnAll()">Włącz wszystkie</button>
+  <pre id="resp-on-all"></pre>
+</section>
+
+<!-- Sekcja 3: /relay/off_all -->
+<section>
+  <h2>/relay/off_all</h2>
+  <p><strong>Endpoint:</strong> <code>POST /relay/off_all</code></p>
+  <button onclick="callOffAll()">Wyłącz wszystkie</button>
+  <pre id="resp-off-all"></pre>
+</section>
+
+<!-- Sekcja 4: /demo -->
+<section>
+  <h2>/demo</h2>
+  <p><strong>Endpoint:</strong> <code>GET /demo</code><br />
+     Uruchamia sekwencję demonstracyjną.</p>
+  <button onclick="callDemo()">Demo</button>
+  <pre id="resp-demo"></pre>
+</section>
+
+<!-- Sekcja 5: /relay/state -->
+<section>
+  <h2>/relay/state</h2>
+  <p><strong>Endpoint:</strong> <code>GET /relay/state?board_index=...&relay_pin=...</code></p>
+  <form onsubmit="event.preventDefault(); getRelayState();" id="form-get-relay">
+    <label>Board Index: <input type="number" id="get-board" value="0" /></label>
+    <label>Relay Pin: <input type="number" id="get-pin" value="1" /></label>
+    <button type="submit">Pobierz stan</button>
+  </form>
+  <pre id="resp-get-relay"></pre>
+</section>
+
+<!-- Sekcja 6: /relay/state_all -->
+<section>
+  <h2>/relay/state_all</h2>
+  <p><strong>Endpoint:</strong> <code>GET /relay/state_all?board_index=...</code><br />
+     Zwraca stany wszystkich 16 pinów danej płytki.</p>
+  <form onsubmit="event.preventDefault(); getAllRelaysInBoard();" id="form-get-relays-board">
+    <label>Board Index: <input type="number" id="get-relays-board" value="0" /></label>
+    <button type="submit">Pobierz</button>
+  </form>
+  <pre id="resp-get-relays-board"></pre>
+</section>
+
+<!-- Sekcja 7: /relay/relay_state_all -->
+<section>
+  <h2>/relay/relay_state_all</h2>
+  <p><strong>Endpoint:</strong> <code>GET /relay/relay_state_all</code><br />
+     Zwraca stany wszystkich płyt (wszystkich pinów) w jednym obiekcie JSON.</p>
+  <button onclick="getAllBoardsState()">Pobierz wszystkie płytki</button>
+  <pre id="resp-all-boards"></pre>
+</section>
+
+<!-- Sekcja 8: /relay/set_number -->
+<section>
+  <h2>/relay/set_number</h2>
+  <p><strong>Endpoint:</strong> <code>POST /relay/set_number?relay_number=...&state=...</code><br />
+     Pozwala sterować przekaźnikiem po numerze 1..128 (bez podawania płytki/pinu).</p>
+  <form onsubmit="event.preventDefault(); setRelayByNumber();" id="form-set-number">
+    <label>Relay Number: <input type="number" id="relay-number-set" value="1" /></label>
+    <label>State (0/1): <input type="number" id="relay-number-state" value="1" /></label>
+    <button type="submit">Ustaw</button>
+  </form>
+  <pre id="resp-set-number"></pre>
+</section>
+
+<!-- Sekcja 9: /relay/state_number -->
+<section>
+  <h2>/relay/state_number</h2>
+  <p><strong>Endpoint:</strong> <code>GET /relay/state_number?relay_number=...</code><br />
+     Odczyt stanu przekaźnika po numerze (1..128).</p>
+  <form onsubmit="event.preventDefault(); getRelayStateNumber();" id="form-get-number">
+    <label>Relay Number: <input type="number" id="relay-number-get" value="1" /></label>
+    <button type="submit">Pobierz stan</button>
+  </form>
+  <pre id="resp-get-number"></pre>
+</section>
+
+<!-- Sekcja 10: /relay/number_state_all -->
+<section>
+  <h2>/relay/number_state_all</h2>
+  <p><strong>Endpoint:</strong> <code>GET /relay/number_state_all</code><br />
+     Zwraca stany wszystkich dostępnych przekaźników (w numeracji 1..N).</p>
+  <button onclick="getAllRelaysNumbered()">Pobierz wszystkie</button>
+  <pre id="resp-all-relays-numbered"></pre>
+</section>
+
+<!-- Sekcja 11: /temperature -->
+<section>
+  <h2>/temperature</h2>
+  <p><strong>Endpoint:</strong> <code>GET /temperature</code><br />
+     Zwraca listę z odczytanymi temperaturami z czujników DS18B20.</p>
+  <button onclick="getTemperature()">Pobierz temperatury</button>
+  <pre id="resp-temperature"></pre>
+</section>
+
+<!-- Skrypty JavaScript do obsługi fetch (dla każdego endpointa) -->
+<script>
+// 1. /relay/set
+function setRelay() {
+  const board = document.getElementById("set-board").value;
+  const pin   = document.getElementById("set-pin").value;
+  const state = document.getElementById("set-state").value;
+
+  fetch(`/relay/set?board_index=${board}&relay_pin=${pin}&state=${state}`, {
+    method: 'POST'
+  })
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-set-relay").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 2. /relay/on_all
+function callOnAll() {
+  fetch('/relay/on_all', { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-on-all").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 3. /relay/off_all
+function callOffAll() {
+  fetch('/relay/off_all', { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-off-all").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 4. /demo
+function callDemo() {
+  fetch('/demo')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-demo").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 5. /relay/state
+function getRelayState() {
+  const board = document.getElementById("get-board").value;
+  const pin   = document.getElementById("get-pin").value;
+
+  fetch(`/relay/state?board_index=${board}&relay_pin=${pin}`)
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-get-relay").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 6. /relay/state_all
+function getAllRelaysInBoard() {
+  const board = document.getElementById("get-relays-board").value;
+
+  fetch(`/relay/state_all?board_index=${board}`)
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-get-relays-board").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 7. /relay/relay_state_all
+function getAllBoardsState() {
+  fetch('/relay/relay_state_all')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-all-boards").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 8. /relay/set_number
+function setRelayByNumber() {
+  const relayNumber = document.getElementById("relay-number-set").value;
+  const state       = document.getElementById("relay-number-state").value;
+
+  fetch(`/relay/set_number?relay_number=${relayNumber}&state=${state}`, {
+    method: 'POST'
+  })
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-set-number").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 9. /relay/state_number
+function getRelayStateNumber() {
+  const relayNumber = document.getElementById("relay-number-get").value;
+
+  fetch(`/relay/state_number?relay_number=${relayNumber}`)
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-get-number").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 10. /relay/number_state_all
+function getAllRelaysNumbered() {
+  fetch('/relay/number_state_all')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-all-relays-numbered").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+
+// 11. /temperature
+function getTemperature() {
+  fetch('/temperature')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("resp-temperature").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
+}
+</script>
+
+</body>
+</html>
