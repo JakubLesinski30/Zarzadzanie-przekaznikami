@@ -6,36 +6,33 @@ import java.util.Map;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import Zarzadzanie.przekaznikami.Termometry.DodatkowyTermometrService;
+import Zarzadzanie.przekaznikami.Termometry.TermometrTabela;
+import Zarzadzanie.przekaznikami.Termometry.TermometrService;
+
 @Service
-public class MeasurementScheduler {
+public class SkanTempPoprawkaZapisDoBazy {
 
-    private final ThermometerService thermometerService;
-    private final ExternalTemperatureService externalTemperatureService;
+    private final TermometrService thermometerService;
+    private final DodatkowyTermometrService externalTemperatureService;
 
-    public MeasurementScheduler(ThermometerService thermometerService,
-                                ExternalTemperatureService externalTemperatureService) {
+    public SkanTempPoprawkaZapisDoBazy(TermometrService thermometerService,
+                                DodatkowyTermometrService externalTemperatureService) {
         this.thermometerService = thermometerService;
         this.externalTemperatureService = externalTemperatureService;
     }
 
-    // Co 2 sekundy
     @Scheduled(fixedRate = 2000)
     public void pollAndStoreMeasurements() {
-        // 1. Pobierz wszystkie odczyty z zewn. API (mapa: sensorId -> surowa temp)
         Map<String, Double> allExternalTemps = externalTemperatureService.fetchAllTemperatures();
 
-        // 2. Przejrzyj wszystkie termometry z bazy
-        List<ThermometerEntity> allThermometers = thermometerService.findAll();
+        List<TermometrTabela> allThermometers = thermometerService.findAll();
 
-        for (ThermometerEntity therm : allThermometers) {
-            // Sprawdź, czy API dało nam temperaturę dla tego ID
+        for (TermometrTabela therm : allThermometers) {
             if (allExternalTemps.containsKey(therm.getId())) {
                 double rawTemp = allExternalTemps.get(therm.getId());
                 double correctedTemp = rawTemp + therm.getOffset(); 
-                // ewentualnie minus, w zależności od interpretacji
                 
-                // 3. Zapisz skorygowaną temperaturę w bazie
-                //    np. w polu lastMeasurement w encji
                 therm.setLastMeasurement(correctedTemp);
                 thermometerService.updateThermometer(therm);
             }

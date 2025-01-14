@@ -1,4 +1,4 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Termometry;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,20 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class ExternalTemperatureService {
+public class DodatkowyTermometrService {
 
     private final RestTemplate restTemplate;
     private final String baseUrl;
 
-    public ExternalTemperatureService(@Value("${relay.server.host}") String baseUrl) {
+    public DodatkowyTermometrService(@Value("${relay.server.host}") String baseUrl) {
         this.restTemplate = new RestTemplate();
-        this.baseUrl = baseUrl;  // np. http://192.168.1.99:5000
+        this.baseUrl = baseUrl; 
     }
 
-    /**
-     * Pobiera wszystkie dostępne odczyty z API.
-     * Zwraca mapę: ID -> bieżąca temperatura
-     */
     public Map<String, Double> fetchAllTemperatures() {
         String url = baseUrl + "/temperature";
         // Zakładamy format:

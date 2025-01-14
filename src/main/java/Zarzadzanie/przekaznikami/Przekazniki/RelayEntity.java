@@ -1,4 +1,4 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Przekazniki;
 
 import jakarta.persistence.*;
 

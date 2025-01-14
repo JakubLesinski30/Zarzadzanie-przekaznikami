@@ -1,6 +1,5 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Przekazniki;
 
-import Zarzadzanie.przekaznikami.RelayEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RelayRepository extends JpaRepository<RelayEntity, Long> {

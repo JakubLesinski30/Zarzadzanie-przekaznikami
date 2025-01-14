@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Nowy termometr</title>
+    <title>Edycja termometru</title>
 </head>
 <body>
-<h1>Dodawanie nowego termometru</h1>
+<h1>Edycja termometru</h1>
 
-<form th:action="@{/db/thermometers/new}" method="post" th:object="${thermometer}">
-    <p>
-        <label for="id">ID (np. 28-000000880ee6):</label>
-        <input type="text" id="id" th:field="*{id}" required />
-    </p>
+<form th:action="@{/termometry/edytuj}" method="post" th:object="${thermometer}">
+    <input type="hidden" th:field="*{id}" />
+
     <p>
         <label for="name">Nazwa:</label>
         <input type="text" id="name" th:field="*{name}" />
@@ -27,7 +25,9 @@
     <label for="offset">Offset (°C):</label>
     <input type="number" step="0.1" id="offset" th:field="*{offset}" />
 </p>
-    <button type="submit">Zapisz</button>
+    <button type="submit">Zapisz zmiany</button>
 </form>
+
+<p><a th:href="@{/termometry/lista}">Powrót do listy</a></p>
 </body>
 </html>

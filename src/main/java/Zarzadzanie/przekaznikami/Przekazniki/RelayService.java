@@ -1,4 +1,4 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Przekazniki;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

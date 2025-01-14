@@ -1,31 +1,26 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Termometry;
 
 import jakarta.persistence.*;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "thermometers")
-public class ThermometerEntity {
+@Table(name = "termometry")
+public class TermometrTabela {
 
     @Id
     @Column(length = 50, nullable = false)
     private String id;
 
     private String name;
+    
     private String description;
+    
     private String location;
 
-    // np. offset do kalibracji
-    // 0.0 oznacza brak korekty,
-    // +0.5 oznacza, że odczyt z API jest o 0.5 za niski i zwiększamy,
-    // -0.5 odwrotnie
     private double offset;
 
-    // Możesz też trzymać ostatnio zapisaną temperaturę w bazie:
     private Double lastMeasurement;
-
-    // get/set ...
     
     public double getOffset() {
         return offset;
@@ -75,5 +70,4 @@ public class ThermometerEntity {
 		this.location = location;
 	}
 
-    // reszta pól, get/set
 }

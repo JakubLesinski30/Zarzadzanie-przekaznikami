@@ -1,38 +1,39 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Termometry;
 
 
-import Zarzadzanie.przekaznikami.ThermometerEntity;
-import Zarzadzanie.przekaznikami.ThermometerRepository;
 import org.springframework.stereotype.Service;
+
+import Zarzadzanie.przekaznikami.Termometry.TermometrTabela;
+import Zarzadzanie.przekaznikami.Termometry.TermometrRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ThermometerService {
+public class TermometrService {
 
-    private final ThermometerRepository thermometerRepository;
+    private final TermometrRepository thermometerRepository;
 
-    public ThermometerService(ThermometerRepository thermometerRepository) {
+    public TermometrService(TermometrRepository thermometerRepository) {
         this.thermometerRepository = thermometerRepository;
     }
 
-    public ThermometerEntity createThermometer(ThermometerEntity thermometer) {
+    public TermometrTabela createThermometer(TermometrTabela thermometer) {
         // Jeżeli chcesz najpierw sprawdzić, czy dany ID już nie istnieje, możesz zrobić:
         // if (thermometerRepository.existsById(thermometer.getId())) { ... }
         return thermometerRepository.save(thermometer);
     }
 
-    public List<ThermometerEntity> findAll() {
+    public List<TermometrTabela> findAll() {
         return thermometerRepository.findAll();
     }
 
-    public ThermometerEntity findById(String id) {
-        Optional<ThermometerEntity> optional = thermometerRepository.findById(id);
+    public TermometrTabela findById(String id) {
+        Optional<TermometrTabela> optional = thermometerRepository.findById(id);
         return optional.orElse(null);
     }
 
-    public ThermometerEntity updateThermometer(ThermometerEntity thermometer) {
+    public TermometrTabela updateThermometer(TermometrTabela thermometer) {
         // O ile zakładamy, że ID się nie zmienia (bo to unikat 1-Wire), 
         // to wystarczy:
         return thermometerRepository.save(thermometer);

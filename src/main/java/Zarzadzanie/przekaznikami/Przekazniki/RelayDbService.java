@@ -1,8 +1,9 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Przekazniki;
 
-import Zarzadzanie.przekaznikami.RelayEntity;
-import Zarzadzanie.przekaznikami.RelayRepository;
 import org.springframework.stereotype.Service;
+
+import Zarzadzanie.przekaznikami.Przekazniki.RelayEntity;
+import Zarzadzanie.przekaznikami.Przekazniki.RelayRepository;
 
 import java.util.List;
 import java.util.Optional;

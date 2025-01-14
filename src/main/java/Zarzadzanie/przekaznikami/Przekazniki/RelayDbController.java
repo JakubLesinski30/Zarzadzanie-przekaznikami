@@ -1,10 +1,11 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Przekazniki;
 
-import Zarzadzanie.przekaznikami.RelayEntity;
-import Zarzadzanie.przekaznikami.RelayDbService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import Zarzadzanie.przekaznikami.Przekazniki.RelayDbService;
+import Zarzadzanie.przekaznikami.Przekazniki.RelayEntity;
 
 
 @Controller

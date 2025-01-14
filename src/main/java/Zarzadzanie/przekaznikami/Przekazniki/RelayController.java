@@ -1,4 +1,4 @@
-package Zarzadzanie.przekaznikami;
+package Zarzadzanie.przekaznikami.Przekazniki;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,17 +14,6 @@ public class RelayController {
     @Autowired
     private RelayService relayService;
 
-    /**
-     * Strona główna – proste menu
-     */
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
-
-    /**
-     * Formularz do ustawiania stanu przekaźnika
-     */
     @GetMapping("/relay/set")
     public String showSetRelayForm() {
         return "relay_set_form"; // thymeleaf template
@@ -78,13 +67,4 @@ public class RelayController {
         return "relay_states_all";
     }
 
-    /**
-     * Pobranie temperatur z czujników
-     */
-    @GetMapping("/temperature")
-    public String getTemperatureData(Model model) {
-        Map<String, Object> temperatureData = relayService.getTemperatures();
-        model.addAttribute("temperatureData", temperatureData);
-        return "temperature";
-    }
 }
