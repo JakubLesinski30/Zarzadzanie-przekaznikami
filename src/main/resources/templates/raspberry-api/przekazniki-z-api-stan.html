@@ -6,13 +6,12 @@
 <body>
 <h1>Pobierz stan przekaźnika</h1>
 
-<form th:action="@{/relay/state/result}" method="get">
+<form th:action="@{/przekazniki-z-api/stan/wynik}" method="get">
     <label for="relayNumber">Numer przekaźnika (1..128): </label>
     <input type="number" id="relayNumber" name="relayNumber" min="1" max="128" required />
     <input type="submit" value="Pobierz stan" />
 </form>
 
-<!-- Wyświetlenie stanu -->
 <div th:if="${relayState}">
     <h2>Aktualny stan przekaźnika</h2>
     <p>Relay number: <span th:text="${relayState['relay_number']}">N/A</span></p>

@@ -8,7 +8,6 @@
 <table border="1">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Numer</th>
         <th>Nazwa</th>
         <th>Opis</th>
@@ -26,7 +25,7 @@
         <td th:text="${relay.state}">-</td>
         <td th:text="${relay.location}">-</td>
         <td>
-            <a th:href="@{/db/relay/delete/{id}(id=${relay.id})}">
+            <a th:href="@{usun/{id}(id=${relay.id})}">
                 Usuń
             </a>
         </td>

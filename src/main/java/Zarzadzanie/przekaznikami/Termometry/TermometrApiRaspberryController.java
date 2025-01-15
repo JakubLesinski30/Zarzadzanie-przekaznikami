@@ -5,16 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import Zarzadzanie.przekaznikami.Przekazniki.RelayService;
+import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiApiRaspberryService;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
-public class TermometrApiRaspberryKontroller {
+public class TermometrApiRaspberryController {
 
     @Autowired
-    private RelayService relayService;
+    private PrzekaznikiApiRaspberryService relayService;
 
     @GetMapping("/temperatura-z-api")
     public String getTemperatureData(Model model) {

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Panel sterowania</title>
+    <title>Strona główna</title>
 </head>
 <body>
-    <h1>Panel sterowania</h1>
-    <ul>
-        <li><a th:href="@{/relay/set}">Ustaw stan przekaźnika</a></li>
-        <li><a th:href="@{/relay/state}">Pobierz stan pojedynczego przekaźnika</a></li>
-        <li><a th:href="@{/relay/all}">Pobierz stany wszystkich przekaźników</a></li>
-        
+    <h1>Panel sterowania przekaznikami</h1>
+    
+    <ul>      
         <li><a th:href="@{/termometry/lista}">Termometry</a></li>
-        
-        <br>
-        <li>Dane z API:</li>
+     </ul>
+       
+       <h2>Dane z API:</h2>
+     <ul>
         <li><a th:href="@{/temperatura-z-api}">Wszystkie temperatury z czujników - API</a></li>
-        <li></li>
+        <li><a th:href="@{/przekazniki-z-api/ustaw}">Ustaw stan przekaźnika bezpośrednio z API</a></li>
+        <li><a th:href="@{/przekazniki-z-api/stan}">Pobierz stan pojedynczego przekaźnika z API</a></li>
+        <li><a th:href="@{/przekazniki-z-api/wszystkie}">Pobierz stany wszystkich przekaźników z API</a></li>
     </ul>
 </body>
 </html>

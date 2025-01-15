@@ -9,11 +9,11 @@ import Zarzadzanie.przekaznikami.Termometry.TermometrService;
 
 @Controller
 @RequestMapping("termometry")
-public class ThermometerController {
+public class TermometrController {
 
     private final TermometrService thermometerService;
 
-    public ThermometerController(TermometrService thermometerService) {
+    public TermometrController(TermometrService thermometerService) {
         this.thermometerService = thermometerService;
     }
 

@@ -3,28 +3,28 @@ package Zarzadzanie.przekaznikami;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import Zarzadzanie.przekaznikami.Przekazniki.RelayDbService;
-import Zarzadzanie.przekaznikami.Przekazniki.RelayEntity;
-import Zarzadzanie.przekaznikami.Przekazniki.RelayService;
+import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiService;
+import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiEntity;
+import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiApiRaspberryService;
 
 import java.util.List;
 
 @Component
 public class InicjalizacjaPrzekaznikow implements CommandLineRunner {
 
-    private final RelayDbService relayDbService;
-    private final RelayService relayService;
+    private final PrzekaznikiService relayDbService;
+    private final PrzekaznikiApiRaspberryService relayService;
 
-    public InicjalizacjaPrzekaznikow(RelayDbService relayDbService, RelayService relayService) {
+    public InicjalizacjaPrzekaznikow(PrzekaznikiService relayDbService, PrzekaznikiApiRaspberryService relayService) {
         this.relayDbService = relayDbService;
         this.relayService = relayService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        List<RelayEntity> allRelays = relayDbService.findAll();
+        List<PrzekaznikiEntity> allRelays = relayDbService.findAll();
 
-        for (RelayEntity relay : allRelays) {
+        for (PrzekaznikiEntity relay : allRelays) {
             int relayNumber = relay.getRelayNumber();
             int state = relay.getState();
 

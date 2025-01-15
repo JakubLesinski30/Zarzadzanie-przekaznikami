@@ -9,20 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class RelayController {
+public class PrzekaznikiApiRaspberryController {
 
     @Autowired
-    private RelayService relayService;
+    private PrzekaznikiApiRaspberryService relayService;
 
-    @GetMapping("/relay/set")
+    @GetMapping("/przekazniki-z-api/ustaw")
     public String showSetRelayForm() {
-        return "relay_set_form"; // thymeleaf template
+        return "raspberry-api/przekazniki-z-api-ustaw-form"; 
     }
 
-    /**
-     * Odbiór danych z formularza i ustawienie stanu przekaźnika
-     */
-    @PostMapping("/relay/set")
+    @PostMapping("/przekazniki-z-api/ustaw")
     public String setRelay(
             @RequestParam("relayNumber") int relayNumber,
             @RequestParam("state") int state,
@@ -32,39 +29,31 @@ public class RelayController {
         model.addAttribute("relayNumber", relayNumber);
         model.addAttribute("state", state);
         model.addAttribute("result", result);
-        return "relay_set_form"; // wracamy na ten sam widok lub inny
+        return "raspberry-api/przekazniki-z-api-ustaw-form";
     }
 
-    /**
-     * Formularz do pobrania stanu wybranego przekaźnika
-     */
-    @GetMapping("/relay/state")
+
+    @GetMapping("/przekazniki-z-api/stan")
     public String showRelayStateForm() {
-        return "relay_state_form";
+        return "raspberry-api/przekazniki-z-api-stan";
     }
 
-    /**
-     * Pobranie stanu wybranego przekaźnika i wyświetlenie
-     */
-    @GetMapping("/relay/state/result")
+    @GetMapping("/przekazniki-z-api/stan/wynik")
     public String getRelayState(
             @RequestParam("relayNumber") int relayNumber,
             Model model
     ) {
         Map<String, Object> relayState = relayService.getRelayState(relayNumber);
         model.addAttribute("relayState", relayState);
-        return "relay_state_form";
+        return "raspberry-api/przekazniki-z-api-stan";
     }
 
-    /**
-     * Pobranie stanu wszystkich przekaźników
-     */
-    @GetMapping("/relay/all")
+
+    @GetMapping("/przekazniki-z-api/wszystkie")
     public String getAllRelays(Model model) {
         Map<String, Object> allRelayStates = relayService.getAllRelaysState();
-        // "relays" jest listą map
         model.addAttribute("allRelayStates", allRelayStates);
-        return "relay_states_all";
+        return "raspberry-api/przekazniki-z-api-wszystkie";
     }
 
 }

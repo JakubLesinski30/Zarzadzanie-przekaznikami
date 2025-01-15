@@ -6,7 +6,7 @@
 <body>
 <h1>Dodaj przekaźnik do bazy</h1>
 
-<form th:action="@{/db/relay/new}" method="post" th:object="${relay}">
+<form th:action="@{/przekazniki/nowy}" method="post" th:object="${relay}">
     <p>
         <label for="relayNumber">Numer przekaźnika:</label>
         <input type="number" id="relayNumber" th:field="*{relayNumber}" required />

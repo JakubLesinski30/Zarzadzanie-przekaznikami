@@ -3,8 +3,8 @@ package Zarzadzanie.przekaznikami.Przekazniki;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "relays")
-public class RelayEntity {
+@Table(name = "przekazniki")
+public class PrzekaznikiEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +19,12 @@ public class RelayEntity {
     @Column(name = "description", length = 255)
     private String description;
 
-    // 0 = OFF, 1 = ON
     @Column(name = "state")
     private Integer state;
 
     @Column(name = "location", length = 100)
     private String location;
 
-    // Gettery i settery
     public Long getId() {
         return id;
     }
