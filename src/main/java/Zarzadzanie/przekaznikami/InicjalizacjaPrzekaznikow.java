@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiService;
-import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiEntity;
+import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiTabela;
 import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiApiRaspberryService;
 
 import java.util.List;
@@ -22,9 +22,9 @@ public class InicjalizacjaPrzekaznikow implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<PrzekaznikiEntity> allRelays = relayDbService.findAll();
+        List<PrzekaznikiTabela> allRelays = relayDbService.findAll();
 
-        for (PrzekaznikiEntity relay : allRelays) {
+        for (PrzekaznikiTabela relay : allRelays) {
             int relayNumber = relay.getRelayNumber();
             int state = relay.getState();
 

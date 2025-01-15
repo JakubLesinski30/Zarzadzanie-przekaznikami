@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiService;
-import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiEntity;
+import Zarzadzanie.przekaznikami.Przekazniki.PrzekaznikiTabela;
 
 
 @Controller
@@ -22,13 +22,13 @@ public class PrzekaznikiController {
 
     @GetMapping("/nowy")
     public String showNewRelayForm(Model model) {
-        model.addAttribute("relay", new PrzekaznikiEntity());
+        model.addAttribute("relay", new PrzekaznikiTabela());
         return "przekazniki/przekazniki-nowy-form";
     }
 
     @PostMapping("/nowy")
-    public String createRelay(@ModelAttribute PrzekaznikiEntity relay, Model model) {
-        PrzekaznikiEntity saved = relayDbService.createRelay(relay);
+    public String createRelay(@ModelAttribute PrzekaznikiTabela relay, Model model) {
+        PrzekaznikiTabela saved = relayDbService.createRelay(relay);
         model.addAttribute("savedRelay", saved);
         return "przekazniki/przekazniki-nowy-wynik";
     }
@@ -48,7 +48,7 @@ public class PrzekaznikiController {
     public String changeRelayState(@RequestParam("relayNumber") Integer relayNumber,
                                    @RequestParam("state") Integer newState,
                                    Model model) {
-        PrzekaznikiEntity updated = relayDbService.updateRelayState(relayNumber, newState);
+        PrzekaznikiTabela updated = relayDbService.updateRelayState(relayNumber, newState);
 
         if (updated != null) {
             relayService.setRelayState(relayNumber, newState); 

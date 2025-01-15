@@ -22,4 +22,18 @@ public class TermometrApiRaspberryController {
         model.addAttribute("temperatureData", temperatureData);
         return "raspberry-api/temperatura-z-api";
     }
+    
+    @GetMapping("/temperatura-z-api/wirtualne")
+    public String getTemperatureVirtualData(Model model) {
+        Map<String, Object> temperatureData = relayService.getTemperaturesVirtual();
+        model.addAttribute("temperatureData", temperatureData);
+        return "raspberry-api/temperatura-z-api-wirtualne";
+    }
+    
+    @GetMapping("/temperatura-z-api/wszystkie")
+    public String getTemperatureWszystkieData(Model model) {
+        Map<String, Object> temperatureData = relayService.getTemperaturesAll();
+        model.addAttribute("temperatureData", temperatureData);
+        return "raspberry-api/temperatura-z-api-wszystkie";
+    }
 }

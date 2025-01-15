@@ -50,4 +50,16 @@ public class PrzekaznikiApiRaspberryService {
         ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
         return response.getBody();
     }
+    
+    public Map<String, Object> getTemperaturesVirtual() {
+        String url = baseUrl + "/temperature/virtual";
+        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+        return response.getBody();
+    }
+    
+    public Map<String, Object> getTemperaturesAll() {
+        String url = baseUrl + "/temperature-all";
+        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+        return response.getBody();
+    }
 }

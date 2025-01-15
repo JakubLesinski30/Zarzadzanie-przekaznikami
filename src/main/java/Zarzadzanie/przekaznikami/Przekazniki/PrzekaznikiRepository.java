@@ -2,8 +2,8 @@ package Zarzadzanie.przekaznikami.Przekazniki;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PrzekaznikiRepository extends JpaRepository<PrzekaznikiEntity, Long> {
+public interface PrzekaznikiRepository extends JpaRepository<PrzekaznikiTabela, Long> {
 
-    PrzekaznikiEntity findByRelayNumber(Integer relayNumber);
+    PrzekaznikiTabela findByRelayNumber(Integer relayNumber);
 
 }

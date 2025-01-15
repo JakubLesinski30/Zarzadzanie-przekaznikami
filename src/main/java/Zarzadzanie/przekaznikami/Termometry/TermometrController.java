@@ -38,7 +38,7 @@ public class TermometrController {
     public String showEditForm(@PathVariable("id") String id, Model model) {
         TermometrTabela thermometer = thermometerService.findById(id);
         if (thermometer == null) {
-            return "redirect:/db/thermometers/list";
+            return "redirect:/termometry/lista";
         }
         model.addAttribute("thermometer", thermometer);
         return "termometry/termometry-edytuj-form";    }
